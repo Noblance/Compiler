@@ -11,9 +11,11 @@ What I know, the round about structure of creating a self-hosted compiler is:
 
 I hope you have fun on this journey and let's begin.
 
-And I am excusing before the project for my bad english.
+And I am excusing straight upt for my bad english.
 
 I am following or use the steps from https://github.com/DoctorWkt/acwj/blob/master/00_Introduction/Readme.md and https://www.youtube.com/watch?v=vcSijrRsrY0&list=PLUDlas_Zy_qC7c5tCgTMYq2idyyT241qs
 
 
-Generally we use a compiler to make more readable code to assembly code and then assemble this code and link some libraries in order to get an executable 
+Generally we use a compiler to make more readable code to assembly code and then assemble this code and link some libraries in order to get an executable.
+
+BTW we are gonna programm a C or C# like compiler, because most of the people would understand it better
