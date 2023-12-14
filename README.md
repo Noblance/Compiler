@@ -10,3 +10,7 @@ What I know, the round about structure of creating a self-hosted compiler is:
  -) Self-Hosted Compiler
 
 I hope you have fun on this journey and let's begin.
+
+And I am excusing before the project for my bad english.
+
+I am following or use the steps from https://github.com/DoctorWkt/acwj/blob/master/00_Introduction/Readme.md
