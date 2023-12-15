@@ -35,6 +35,22 @@ static List<Token> Tokenize(string inputcontext) //Methode to define the tokens 
             outputtokens.Add(new Token() { Type = TypeofToken.int_val, Value = item });
         }
 
+        if (item == "+")
+        {
+            outputtokens.Add(new Token() { Type = TypeofToken.plus});
+        }
+        if (item == "-")
+        {
+            outputtokens.Add(new Token() { Type = TypeofToken.minus});
+        }
+        if (item == "*")
+        {
+            outputtokens.Add(new Token() { Type = TypeofToken.multi});
+        }
+        if (item == "/")
+        {
+            outputtokens.Add(new Token() { Type = TypeofToken.divid});
+        }
         if (semi)
         {
             outputtokens.Add(new Token() { Type = TypeofToken.semicol });
@@ -43,13 +59,47 @@ static List<Token> Tokenize(string inputcontext) //Methode to define the tokens 
     return outputtokens;
 }
 
+static ASTNode MKAST(List<Token> tokens)
+{
+    return null;
+}
 
-enum TypeofToken { _return, int_val, semicol}
+
+enum TypeofToken { _return, int_val, semicol, plus, minus, multi, divid}
 class Token
 {
     public TypeofToken Type;
     public string Value;
-}    
+}
+
+enum OperationType {O_Add,O_Sub,O_Mul, O_Div}
+class ASTNode
+{
+    public OperationType op;
+    public ASTNode Left;
+    public ASTNode Right;
+    public string int_val;
+    public ASTNode(OperationType op, ASTNode Left, ASTNode Right, string int_val)
+    {
+        this.op = op;
+        this.Left = Left;
+        this.Right = Right;
+        this.int_val = int_val;
+    }
+    static OperationType TookentoASTOp(Token input)
+    {
+        switch (input.Type)
+        {
+            case TypeofToken.plus: return OperationType.O_Add; 
+            case TypeofToken.minus: return OperationType.O_Add; 
+            case TypeofToken.multi: return OperationType.O_Add; 
+            case TypeofToken.divid: return OperationType.O_Add; 
+            default: throw new Exception("No valid Operation");
+        }
+    }
+}
+
+
 
 
 
