@@ -2,10 +2,11 @@
 
 if (args.Length != 0 && args[0] != " " && args[0][args[0].Length-4] == 'c'&& args[0][args[0].Length-3] == 'b'&& args[0][args[0].Length-2] == 'l'&& args[0][args[0].Length-2] == 't') //Check whether an input file is there
 {                                                                                                                                                                                   //Our Language is called "c blurred" so our extension is .cblt
-    string inputcontext = File.ReadAllText(@args[0]); //get our code
+    string inputcontext = File.ReadAllText(@args[0]/*@"../../../input/input.cblt"*/); //get our code
     List<Token> tokens = Tokenize(inputcontext); //Tokenize it
     AST tree = new AST();
     tree.Parse(tokens);
+    Console.WriteLine();
 }
 else
 {
@@ -93,11 +94,11 @@ class AST
             switch (item.Type)
             {
                 case TypeofToken._exit: nodes.Add(new ASTNode(OperationType.O_Exit,null,null,null));break;
-                case TypeofToken.plus: nodes.Add(new ASTNode(OperationType.O_Exit,null,null,null));break;
-                case TypeofToken.minus: nodes.Add(new ASTNode(OperationType.O_Exit,null,null,null));break;
-                case TypeofToken.divid: nodes.Add(new ASTNode(OperationType.O_Exit,null,null,null));break;
-                case TypeofToken.multi: nodes.Add(new ASTNode(OperationType.O_Exit,null,null,null));break;
-                case TypeofToken.int_val: nodes.Add(new ASTNode(OperationType.O_Exit,null,null,item.Value));break;
+                case TypeofToken.plus: nodes.Add(new ASTNode(OperationType.O_Add,null,null,null));break;
+                case TypeofToken.minus: nodes.Add(new ASTNode(OperationType.O_Sub,null,null,null));break;
+                case TypeofToken.divid: nodes.Add(new ASTNode(OperationType.O_Div,null,null,null));break;
+                case TypeofToken.multi: nodes.Add(new ASTNode(OperationType.O_Mul,null,null,null));break;
+                case TypeofToken.int_val: nodes.Add(new ASTNode(OperationType.O_Int_Val,null,null,item.Value));break;
                 default: throw new Exception("No valid Parsing");
             }
         }
@@ -120,36 +121,52 @@ class AST
 
     ASTNode FindBinaryExpr(List<ASTNode> list, int index)
     {
-        ASTNode root = null;
-        int foundedindex = index;
-        for(int i = index; i<list.Count; i++)
+        if (index < list.Count)
         {
-            if (list[i].op == OperationType.O_Add)
+            ASTNode root = null;
+            int foundedindex = index;
+            for(int i = index; i<list.Count; i++)
             {
-                root = list[i];
-                foundedindex = i;
+                if (list[i].op == OperationType.O_Add)
+                {
+                    root = list[i];
+                    foundedindex = i;
+                    i += list.Count;
+                }
+                else if (list[i].op == OperationType.O_Div)
+                {
+                    root = list[i];
+                    foundedindex = i;
+                    i += list.Count;
+                }
+                else if (list[i].op == OperationType.O_Mul)
+                {
+                    root = list[i];
+                    foundedindex = i;
+                    i += list.Count;
+                }
+                else if (list[i].op == OperationType.O_Sub)
+                {
+                    root = list[i];
+                    foundedindex = i;
+                    i += list.Count;
+                }
             }
-            if (list[i].op == OperationType.O_Div)
-            {
-                root = list[i];
-                foundedindex = i;
-            }
-            if (list[i].op == OperationType.O_Mul)
-            {
-                root = list[i];
-                foundedindex = i;
-            }
-            if (list[i].op == OperationType.O_Sub)
-            {
-                root = list[i];
-                foundedindex = i;
-            }
-        }
         
-        if (list[foundedindex-1].op == OperationType.O_Int_Val)
-        {
-            root.Left = list[foundedindex-1];
-            root.Right = FindBinaryExpr(list, foundedindex + 1);
+            if (list[foundedindex-1].op == OperationType.O_Int_Val)
+            {
+                root.Left = list[foundedindex-1];
+                root.Right = FindBinaryExpr(list, foundedindex + 1);
+                if (root.Right == null)
+                {
+                    if (foundedindex+1<list.Count())
+                    {
+                        root.Right = list[foundedindex + 1];
+                    }
+                }
+            }
+
+            return root;
         }
         return null;
     }
