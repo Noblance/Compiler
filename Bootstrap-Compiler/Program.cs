@@ -1,7 +1,7 @@
 ﻿
 
-if (args.Length != 0 && args[0] != " " && args[0][args[0].Length-4] == 'c'&& args[0][args[0].Length-3] == 'b'&& args[0][args[0].Length-2] == 'l'&& args[0][args[0].Length-2] == 't') //Check whether an input file is there
-{                                                                                                                                                                                   //Our Language is called "c blurred" so our extension is .cblt
+if (args.Length != 0 && args[0] != " " ) //Check whether an input file is there
+{                                                                                                                                                                                  
     string inputcontext = File.ReadAllText(@args[0]/*@"../../../input/input.cblt"*/); //get our code
     List<Token> tokens = Tokenize(inputcontext); //Tokenize it
     AST tree = new AST();
