@@ -20,4 +20,4 @@ Generally we use a compiler to make more readable code to assembly code and then
 
 BTW we are gonna programm a C or C# like compiler, because most of the people would understand it better
 
-[Lexer]/W_WIKI/Lexer.md
+[Lexer] (/W_WIKI/Lexer.md)
