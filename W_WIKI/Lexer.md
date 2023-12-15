@@ -13,4 +13,4 @@ For this you will need:
 
 BTW. A Token is not a character by it self, but rather a signal word in the code.
 
-[Parsing](./Parser.md)
+[Parsing](./Parsing.md)
