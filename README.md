@@ -19,3 +19,5 @@ I am following or use the steps from https://github.com/DoctorWkt/acwj/blob/mast
 Generally we use a compiler to make more readable code to assembly code and then assemble this code and link some libraries in order to get an executable.
 
 BTW we are gonna programm a C or C# like compiler, because most of the people would understand it better
+
+[Lexer] /W_WIKI/Lexer.md
