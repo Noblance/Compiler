@@ -7,6 +7,7 @@ if (args.Length != 0 && args[0] != " " ) //Check whether an input file is there
     AST tree = new AST();
     tree.Parse(tokens);
     Console.WriteLine();
+    
 }
 else
 {
@@ -81,12 +82,12 @@ class Token
 
 #region Parser/AST
 
-enum OperationType {O_Add,O_Sub,O_Mul, O_Div, O_Exit,O_Int_Val}
+enum OperationType {O_Add,O_Sub,O_Mul, O_Div, O_Exit,O_Int_Val} //Type of Operators we have
 
 class AST
 {
     public ASTNode Root { get; private set; }
-    public void Parse(List<Token> tokens)
+    public void Parse(List<Token> tokens) //Parsing the Tokens into Nodes
     {
         List<ASTNode> nodes = new List<ASTNode>();
         foreach (var item in tokens)
@@ -104,7 +105,7 @@ class AST
         }
 
         ASTNode r;
-        if ((r = FindBinaryExpr(nodes, 0)) != null && nodes.Count > nodes.IndexOf(r) )
+        if ((r = FindBinaryExpr(nodes, 0)) != null && nodes.Count > nodes.IndexOf(r) ) //generating The AST
         {
             Root = r;
             
@@ -125,7 +126,7 @@ class AST
         {
             ASTNode root = null;
             int foundedindex = index;
-            for(int i = index; i<list.Count; i++)
+            for(int i = index; i<list.Count; i++) //Looking for Binary expressions
             {
                 if (list[i].op == OperationType.O_Add)
                 {
@@ -156,7 +157,7 @@ class AST
             if (list[foundedindex-1].op == OperationType.O_Int_Val)
             {
                 root.Left = list[foundedindex-1];
-                root.Right = FindBinaryExpr(list, foundedindex + 1);
+                root.Right = FindBinaryExpr(list, foundedindex + 1); //Looking if a Int-Value is left
                 if (root.Right == null)
                 {
                     if (foundedindex+1<list.Count())
